@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option C — Monolith · Lo-fi Sketch</title>
+<style>
+  :root {
+    --bg: #f2f2f0;
+    --panel: #0d0d0d;
+    --ink: #111;
+    --paper: #f2f2f0;
+    --dim: #8b8b88;
+    --line: #d9d9d5;
+    --note: #2455c3;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); }
+
+  .note {
+    position: absolute; z-index: 30;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--note); border: 1px dashed var(--note);
+    padding: 4px 8px; background: rgba(242,242,240,.92); max-width: 250px;
+  }
+  .note.on-dark { background: rgba(13,13,13,.85); }
+
+  .ph {
+    background: linear-gradient(135deg, #e0e0dc 0%, #d3d3cf 50%, #e2e2de 100%);
+    border: 1px solid var(--line);
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .ph::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(to top right, transparent calc(50% - .5px), #c2c2be 50%, transparent calc(50% + .5px)),
+      linear-gradient(to top left,  transparent calc(50% - .5px), #c2c2be 50%, transparent calc(50% + .5px));
+  }
+  .ph span { font-family: var(--mono); font-size: 11px; color: var(--dim); z-index: 2; background: var(--bg); padding: 2px 6px; }
+
+  /* ------- fixed left rail ------- */
+  .rail {
+    position: fixed; top: 0; left: 0; bottom: 0; width: 300px; z-index: 10;
+    background: var(--panel); color: var(--paper);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 36px 32px; border-right: 1px solid #000;
+  }
+  .logo-box {
+    width: 150px; height: 40px; border: 1px dashed #666;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 10px; color: #888;
+  }
+  .rail nav ul { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+  .rail nav a { color: var(--paper); text-decoration: none; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; }
+  .rail nav a.active { border-bottom: 1px solid var(--paper); padding-bottom: 4px; }
+  #rail-index { font-family: var(--serif); font-size: 120px; line-height: 1; color: #2e2e2e; }
+  .rail .meta { font-family: var(--mono); font-size: 10px; color: #777; line-height: 1.9; }
+
+  /* ------- scrolling right column ------- */
+  main { margin-left: 300px; position: relative; }
+
+  /* hero */
+  #hero-track { height: 320vh; position: relative; }
+  #hero-stage {
+    position: sticky; top: 0; height: 100vh; background: #161616; color: var(--paper);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  #hero-stage .video-ph {
+    position: absolute; inset: 0; display: flex; flex-direction: column; gap: 12px;
+    align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 12px; color: #7c7c78; text-align: center;
+    background: radial-gradient(ellipse at 60% 40%, #242424 0%, #161616 65%);
+    border: 1px dashed #444; margin: 0;
+  }
+  #scrub-bar { width: 300px; height: 2px; background: #3a3a3a; }
+  #scrub-fill { width: 0%; height: 100%; background: var(--paper); }
+  #hero-type {
+    position: relative; z-index: 2; text-align: left; padding: 0 8vw; width: 100%;
+    mix-blend-mode: difference;
+  }
+  #hero-type .line1 { font-size: 12px; letter-spacing: .5em; text-transform: uppercase; color: #aaa; margin-bottom: 20px; }
+  #hero-type .line2 { font-family: var(--serif); font-size: clamp(44px, 8vw, 110px); font-weight: 400; line-height: 1.02; }
+  #hero-type .line2 em { font-style: italic; }
+
+  /* numbered projects */
+  .project { display: grid; grid-template-columns: 120px 1fr; gap: 40px; padding: 110px 8vw 0; position: relative; }
+  .project .num { font-family: var(--serif); font-size: 64px; color: #c7c7c3; line-height: 1; }
+  .project h2 { font-size: 13px; letter-spacing: .35em; text-transform: uppercase; margin-bottom: 24px; }
+  .project .ph { height: 70vh; margin-bottom: 18px; }
+  .project .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .project .row .ph { height: 44vh; }
+  .project p { color: var(--dim); font-size: 13px; line-height: 1.8; max-width: 52ch; margin-top: 16px; }
+
+  /* index-style gallery list */
+  .index-list { margin: 130px 8vw 0; border-top: 1px solid var(--ink); position: relative; }
+  .index-list .row {
+    display: grid; grid-template-columns: 70px 1fr 200px 120px; gap: 24px; align-items: center;
+    padding: 26px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+  }
+  .index-list .row .t { font-family: var(--serif); font-size: 26px; }
+  .index-list .row .thumb { height: 70px; }
+  .index-list .row .y { color: var(--dim); font-family: var(--mono); font-size: 11px; text-align: right; }
+
+  /* contact panel */
+  .contact { background: var(--panel); color: var(--paper); margin-top: 140px; padding: 130px 8vw; position: relative; }
+  .contact h2 { font-family: var(--serif); font-size: clamp(40px, 6vw, 90px); font-weight: 400; margin-bottom: 30px; }
+  .contact a { color: var(--paper); text-decoration: none; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; border-bottom: 1px solid var(--paper); padding-bottom: 8px; }
+  .contact .foot { display: flex; justify-content: space-between; margin-top: 110px; font-size: 11px; color: #777; letter-spacing: .15em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<!-- FIXED LEFT RAIL -->
+<aside class="rail">
+  <div>
+    <div class="logo-box">LOGO.SVG (light)</div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#" class="active">Index</a></li>
+      <li><a href="#">Work</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <div id="rail-index">01</div>
+  <div class="meta">
+    HIDEKI AONO<br>
+    PHOTOGRAPHER<br>
+    AVAILABLE FOR COMMISSIONS
+  </div>
+  <div class="note on-dark" style="bottom: 150px; left: 20px;">Fixed rail: logo, nav, big section index that updates as the right column scrolls. Collapses to a top bar on mobile.</div>
+</aside>
+
+<main>
+  <!-- HERO -->
+  <div id="hero-track">
+    <div id="hero-stage">
+      <div class="video-ph">
+        <div style="margin-top: 52vh;">[ CAMERA_HERO.MP4 — full-panel background, scrubbed by scroll ]</div>
+        <div id="frame-counter">FRAME 000 / 240</div>
+        <div id="scrub-bar"><div id="scrub-fill"></div></div>
+      </div>
+      <div id="hero-type">
+        <div class="line1">Aono Media — Portfolio 2026</div>
+        <div class="line2">Precision in <em>light</em>,<br>patience in frame.</div>
+      </div>
+      <div class="note on-dark" style="top: 30px; right: 30px;">HERO — video runs behind oversized typography (difference blend). Scroll scrubs playback; type tracks apart and exits upward on the final third.</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section class="project">
+    <div class="note" style="top: 40px; right: 30px;">Numbered case-study blocks: one lead image + two supporting crops. Rail index updates to 02 here.</div>
+    <div class="num">02</div>
+    <div>
+      <h2>Series Title One</h2>
+      <div class="ph"><span>PHOTO — lead image (from existing site)</span></div>
+      <div class="row">
+        <div class="ph"><span>PHOTO — detail A</span></div>
+        <div class="ph"><span>PHOTO — detail B</span></div>
+      </div>
+      <p>One-line series description migrated from existing site copy.</p>
+    </div>
+  </section>
+
+  <section class="project">
+    <div class="num">03</div>
+    <div>
+      <h2>Series Title Two</h2>
+      <div class="ph"><span>PHOTO — lead image</span></div>
+      <p>One-line series description.</p>
+    </div>
+  </section>
+
+  <!-- INDEX LIST -->
+  <div class="index-list">
+    <div class="note" style="top: -40px; right: 0;">Archive as an index table — hovering a row reveals a floating image preview that follows the cursor.</div>
+    <div class="row"><div>04</div><div class="t">Series Three</div><div class="ph thumb"><span>thumb</span></div><div class="y">2025</div></div>
+    <div class="row"><div>05</div><div class="t">Series Four</div><div class="ph thumb"><span>thumb</span></div><div class="y">2024</div></div>
+    <div class="row"><div>06</div><div class="t">Series Five</div><div class="ph thumb"><span>thumb</span></div><div class="y">2024</div></div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact">
+    <h2>Start a commission</h2>
+    <a href="#">Email — from existing site</a>
+    <div class="foot">
+      <div>© 2026 Aono Media</div>
+      <div>Instagram · Email</div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const track = document.getElementById('hero-track');
+  const fill = document.getElementById('scrub-fill');
+  const counter = document.getElementById('frame-counter');
+  const type = document.getElementById('hero-type');
+  const railIndex = document.getElementById('rail-index');
+  const projects = document.querySelectorAll('.project, .index-list, .contact');
+
+  addEventListener('scroll', () => {
+    const total = track.offsetHeight - innerHeight;
+    const p = Math.min(1, Math.max(0, -track.getBoundingClientRect().top / total));
+    fill.style.width = (p * 100) + '%';
+    counter.textContent = 'FRAME ' + String(Math.round(p * 240)).padStart(3, '0') + ' / 240';
+    type.style.transform = 'translateY(' + (p > 0.66 ? -(p - 0.66) * 300 : 0) + 'vh)';
+    type.style.letterSpacing = (p * 0.04) + 'em';
+
+    // rail index tracks the section nearest the viewport top
+    let idx = 1;
+    projects.forEach((el, i) => { if (el.getBoundingClientRect().top < innerHeight * 0.5) idx = i + 2; });
+    railIndex.textContent = String(Math.min(idx, 7)).padStart(2, '0');
+  }, { passive: true });
+</script>
+</body>
+</html>

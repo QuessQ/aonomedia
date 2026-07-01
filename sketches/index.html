@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aono Media — Design Direction Sketches</title>
+<style>
+  :root {
+    --bg: #faf9f7; --ink: #171512; --dim: #7d7870; --line: #e2ded7;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); padding: 70px 40px; }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 4.4vw, 56px); margin-bottom: 12px; }
+  .sub { color: var(--dim); font-size: 15px; line-height: 1.7; max-width: 72ch; margin-bottom: 14px; }
+  .shared { font-family: var(--mono); font-size: 12px; color: var(--dim); border: 1px dashed var(--line); padding: 14px 18px; margin: 26px 0 50px; line-height: 1.8; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  @media (max-width: 960px) { .cards { grid-template-columns: 1fr; } }
+  a.card { display: block; text-decoration: none; color: var(--ink); border: 1px solid var(--line); background: #fff; transition: transform .15s, box-shadow .15s; }
+  a.card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(0,0,0,.09); }
+  .swatch { height: 190px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; }
+  .swatch.a { background: #101010; color: #c9a86a; }
+  .swatch.b { background: #f6f3ee; color: #b05e2a; border-bottom: 1px solid var(--line); }
+  .swatch.c { background: linear-gradient(90deg, #0d0d0d 0 34%, #f2f2f0 34%); color: #2455c3; }
+  .body { padding: 26px; }
+  .tag { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: .1em; }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: 27px; margin: 8px 0 12px; }
+  .body p { color: var(--dim); font-size: 13.5px; line-height: 1.75; }
+  ul.pts { margin: 14px 0 0 16px; color: var(--dim); font-size: 13px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Aono Media — three design directions</h1>
+  <p class="sub">Lo-fi option sketches for the luxury rebuild of aonomedia.com. Gray blocks stand in for your photographs; dashed regions mark the Camera_Hero.mp4 scroll-scrub hero — each sketch scrolls, with a working frame-counter simulation so you can feel the scrub pacing. Orange/blue chips are annotations, not design elements.</p>
+  <div class="shared">
+    SHARED ACROSS ALL OPTIONS — full-screen scroll-scrubbed video hero (Camera_Hero.mp4) ·
+    your logo in the navigation · photographs migrated from the existing site ·
+    scroll-triggered image reveals · fully responsive · fast static build
+  </div>
+  <div class="cards">
+    <a class="card" href="option-a-gallery-noir.html">
+      <div class="swatch a">[ dark · cinematic · serif ]</div>
+      <div class="body">
+        <div class="tag">OPTION A</div>
+        <h2>Gallery Noir</h2>
+        <p>A darkened gallery: near-black canvas, ivory serif type, one work per wall. The video hero plays full-bleed out of darkness.</p>
+        <ul class="pts">
+          <li>Most dramatic; photos glow against black</li>
+          <li>Horizontal drag strip for selected work</li>
+          <li>Fashion / fine-art gallery energy</li>
+        </ul>
+      </div>
+    </a>
+    <a class="card" href="option-b-atelier-light.html">
+      <div class="swatch b">[ warm light · editorial · airy ]</div>
+      <div class="body">
+        <div class="tag">OPTION B</div>
+        <h2>Atelier Light</h2>
+        <p>Warm porcelain background, italic serif headlines, asymmetric editorial grid. The video begins letterboxed and expands to full-bleed as you scroll.</p>
+        <ul class="pts">
+          <li>Most inviting; magazine/atelier warmth</li>
+          <li>Staggered parallax portfolio grid</li>
+          <li>Includes an inquiry form for clients</li>
+        </ul>
+      </div>
+    </a>
+    <a class="card" href="option-c-monolith.html">
+      <div class="swatch c">[ split rail · architectural · bold ]</div>
+      <div class="body">
+        <div class="tag">OPTION C</div>
+        <h2>Monolith</h2>
+        <p>Fixed black rail with logo, nav, and a live section index; content scrolls beside it. Oversized type rides over the scrubbing video.</p>
+        <ul class="pts">
+          <li>Most modern / avant-garde structure</li>
+          <li>Numbered case-study blocks + archive index table</li>
+          <li>Strong agency-grade identity presence</li>
+        </ul>
+      </div>
+    </a>
+  </div>
+</div>
+</body>
+</html>
