@@ -1,44 +1,55 @@
 # Aono Media — Portfolio Rebuild
 
-Luxury, modern rebuild of [aonomedia.com](https://aonomedia.com) — a photography
-portfolio for Hideki Aono, featuring a scroll-scrubbed 3D camera video hero.
+Luxury, modern rebuild of [aonomedia.com](https://aonomedia.com) — the
+photography portfolio of Hideki Aono, featuring a scroll-scrubbed 3D camera
+video hero.
 
-## Current phase: design direction sketches
+**Design direction (chosen):** dark cinematic hero → warm light editorial.
+The site opens on a full-bleed, near-black video hero scrubbed by scroll
+(Gallery Noir), then releases into a warm porcelain editorial body with an
+asymmetric work grid, statement quote, about section, and client inquiry form
+(Atelier Light). The earlier lo-fi explorations remain in [`sketches/`](sketches/).
 
-Three lo-fi option sketches live in [`sketches/`](sketches/). Open
-`sketches/index.html` in a browser (no build step needed) and click through:
+## Running the site
 
-| Option | File | Direction |
+It is a static site — no build step. Open `index.html` in a browser, or serve
+the folder (`python3 -m http.server`) for correct video behavior.
+
+```
+index.html        # single-page site
+css/main.css      # all styles
+js/main.js        # video scrub, reveals, parallax, lightbox, inquiry form
+assets/           # media (see below)
+sketches/         # phase-1 lo-fi design direction sketches
+```
+
+## Dropping in the real assets
+
+The site is fully placeholder-safe: it renders complete with generated
+stand-in imagery, and every real file drops in with **zero code changes**.
+
+| What | Put it at | Notes |
 | --- | --- | --- |
-| A — Gallery Noir | `sketches/option-a-gallery-noir.html` | Dark, cinematic, serif; photos glow against near-black |
-| B — Atelier Light | `sketches/option-b-atelier-light.html` | Warm light editorial; letterboxed video expands on scroll |
-| C — Monolith | `sketches/option-c-monolith.html` | Fixed black rail + live section index; bold architectural |
+| Hero video | `assets/video/Camera_Hero.mp4` | Scrubbed by scroll. For buttery scrubbing, re-encode with dense keyframes: `ffmpeg -i Camera_Hero.mp4 -g 1 -crf 20 -movflags +faststart -an out.mp4`. Use Git LFS if over 100 MB. |
+| Logo | `assets/logos/logo-light.svg` | Light/white variant (sits on the difference-blend nav). Until present, a spaced "AONO MEDIA" wordmark shows instead. |
+| Photos | `assets/photos/photo-01.jpg` … `photo-07.jpg` | Overwrite the generated placeholders with the portfolio photographs (web-sized: ~2500px long edge, JPEG ~80 quality). |
+| Portrait | `assets/photos/portrait.jpg` | Photographer portrait for the About section. |
+| Video poster | `assets/photos/poster.jpg` | First frame of the hero video (optional; a generated one is included). |
 
-Each sketch scrolls and includes a working simulation of the scroll-scrubbed
-hero (frame counter + progress bar) so the pacing can be felt before the real
-video is wired in. Gray X-blocks are placeholders for the site's photographs;
-dashed orange/blue chips are annotations, not design elements.
+More than seven photos? Duplicate a `<figure class="item …">` block in
+`index.html` and extend the `.gN` grid classes in `css/main.css`.
 
-## Assets needed for the final build
+## Copy still to migrate from the existing site
 
-This cloud environment cannot reach the photographer's local machine, and the
-network policy currently blocks fetching from aonomedia.com. To proceed with
-the final build, add the assets to this repo (or grant network access to
-aonomedia.com so the photos can be pulled from the live site):
+Marked with `TODO` comments in `index.html`:
 
-```
-assets/
-  video/Camera_Hero.mp4     # 3D hero video (scroll-scrubbed)
-  logos/                    # logo files (SVG preferred; light + dark variants if available)
-  photos/                   # portfolio photographs from the existing site
-```
+- Introduction line and artist statement / quote
+- Biography copy on the About section
+- Contact email (currently `hello@aonomedia.com`) and social links
+- Real titles/locations for the work-grid captions
 
-Tip for large files: export web-sized photos (~2500px long edge, JPEG ~80
-quality) before committing, or use Git LFS for the video if it exceeds 100 MB.
+## Later
 
-## Final build (next phase)
-
-Once a direction is chosen and assets are in place: a static site (no heavy
-framework), canvas-based scroll scrubbing of the hero video (frames drawn to
-`<canvas>` for smooth scrubbing across browsers), responsive images, and
-scroll-triggered reveals.
+- Swap the inquiry form's `mailto:` composition for a form backend
+  (e.g. Formspree) when an endpoint exists.
+- Optional: per-series pages if the portfolio grows beyond a single page.
