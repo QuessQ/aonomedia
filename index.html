@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aono Media — Hideki Aono, Photographer</title>
+  <meta name="description" content="The photography portfolio of Hideki Aono. Commissions, editorial, and fine-art work.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- ======================= NAVIGATION ======================= -->
+  <nav id="nav">
+    <a class="logo" href="#top" aria-label="Aono Media — home">
+      <img src="assets/logos/logo-light.svg" alt="Aono Media"
+           onerror="this.closest('.logo').classList.add('no-image')">
+      <span class="wordmark">AONO<em>&nbsp;MEDIA</em></span>
+    </a>
+    <ul class="links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ======================= HERO: scroll-scrubbed video ======================= -->
+  <div id="top" class="hero-track">
+    <div class="hero-stage">
+      <video id="hero-video" muted playsinline preload="auto" poster="assets/photos/poster.jpg">
+        <source src="assets/video/Camera_Hero.mp4" type="video/mp4">
+      </video>
+      <canvas id="hero-fallback" aria-hidden="true"></canvas>
+      <div class="hero-veil"></div>
+      <header class="hero-title">
+        <p class="over">Photography by</p>
+        <h1>Hideki&nbsp;Aono</h1>
+      </header>
+      <div class="hero-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="hint-line"><div class="hint-fill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= INTRO STATEMENT ======================= -->
+  <main class="paper">
+    <section class="intro reveal">
+      <!-- TODO: migrate the introduction line from the existing aonomedia.com copy -->
+      <p>Photographs of quiet precision — made slowly,<br class="desk-only">
+      in service of light, place, and the people within them.</p>
+    </section>
+
+    <!-- ======================= SELECTED WORK ======================= -->
+    <section id="work" class="work">
+      <div class="kicker reveal">Selected Work</div>
+      <div class="grid">
+        <figure class="item g1 reveal" data-drift="0.05">
+          <img src="assets/photos/photo-01.jpg" alt="Selected work — one" loading="lazy">
+          <figcaption>№ 01 — Title / Location</figcaption>
+        </figure>
+        <figure class="item g2 reveal" data-drift="0.12">
+          <img src="assets/photos/photo-02.jpg" alt="Selected work — two" loading="lazy">
+          <figcaption>№ 02 — Title / Location</figcaption>
+        </figure>
+        <figure class="item g3 reveal" data-drift="0.08">
+          <img src="assets/photos/photo-03.jpg" alt="Selected work — three" loading="lazy">
+          <figcaption>№ 03 — Title / Location</figcaption>
+        </figure>
+        <figure class="item g4 reveal" data-drift="0.14">
+          <img src="assets/photos/photo-04.jpg" alt="Selected work — four" loading="lazy">
+          <figcaption>№ 04 — Title / Location</figcaption>
+        </figure>
+        <figure class="item g5 reveal" data-drift="0.06">
+          <img src="assets/photos/photo-05.jpg" alt="Selected work — five" loading="lazy">
+          <figcaption>№ 05 — Title / Location</figcaption>
+        </figure>
+        <figure class="item g6 reveal" data-drift="0.11">
+          <img src="assets/photos/photo-06.jpg" alt="Selected work — six" loading="lazy">
+          <figcaption>№ 06 — Title / Location</figcaption>
+        </figure>
+        <figure class="item g7 reveal" data-drift="0.09">
+          <img src="assets/photos/photo-07.jpg" alt="Selected work — seven" loading="lazy">
+          <figcaption>№ 07 — Title / Location</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ======================= STATEMENT QUOTE ======================= -->
+    <section class="quote reveal">
+      <!-- TODO: replace with an artist statement or client quote from the existing site -->
+      <p>&ldquo;The frame is a promise&nbsp;&mdash;<br>everything within it was worth waiting&nbsp;for.&rdquo;</p>
+    </section>
+
+    <!-- ======================= ABOUT ======================= -->
+    <section id="about" class="about">
+      <div class="kicker reveal">The Photographer</div>
+      <div class="cols">
+        <div class="bio reveal">
+          <h2>Hideki Aono</h2>
+          <!-- TODO: migrate biography copy from the existing aonomedia.com about page -->
+          <p>Hideki Aono is a photographer working across portrait, editorial,
+          and commissioned projects. His practice favors patience: natural
+          light, considered framing, and time enough for a subject to become
+          themselves.</p>
+          <p>Available worldwide for commissions and collaborations.</p>
+          <ul class="creds">
+            <li>Commissions · Editorial · Fine Art</li>
+          </ul>
+        </div>
+        <figure class="portrait reveal" data-drift="0.06">
+          <img src="assets/photos/portrait.jpg" alt="Portrait of Hideki Aono" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <!-- ======================= CONTACT ======================= -->
+    <section id="contact" class="contact">
+      <div class="kicker reveal">Commissions &amp; Inquiries</div>
+      <h2 class="reveal">Let&rsquo;s make something<br><em>enduring.</em></h2>
+      <form id="inquiry" class="reveal" novalidate>
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit">Send Inquiry</button>
+        <p class="alt">or write directly — <a href="mailto:hello@aonomedia.com">hello@aonomedia.com</a></p>
+        <!-- TODO: confirm contact email from the existing site; swap mailto for a form
+             backend (e.g. Formspree endpoint) when ready -->
+      </form>
+    </section>
+
+    <footer>
+      <div>© 2026 Aono Media — Hideki Aono</div>
+      <div class="social">
+        <!-- TODO: confirm social links from the existing site -->
+        <a href="https://www.instagram.com/" rel="noopener" target="_blank">Instagram</a>
+        <a href="mailto:hello@aonomedia.com">Email</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ======================= LIGHTBOX ======================= -->
+  <div id="lightbox" aria-hidden="true">
+    <button class="close" aria-label="Close">&times;</button>
+    <img alt="">
+    <div class="lb-caption"></div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

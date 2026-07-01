@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option A — Gallery Noir · Lo-fi Sketch</title>
+<style>
+  :root {
+    --bg: #101010;
+    --ink: #e8e4dc;
+    --dim: #6f6b64;
+    --line: #2c2c2c;
+    --note: #c9a86a;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); }
+
+  /* ------- annotation chips (lo-fi sketch labels, not part of final design) ------- */
+  .note {
+    position: absolute; z-index: 20;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .02em;
+    color: var(--note); border: 1px dashed var(--note);
+    padding: 4px 8px; background: rgba(16,16,16,.85); max-width: 260px;
+  }
+
+  /* ------- placeholder photo blocks ------- */
+  .ph {
+    background: linear-gradient(135deg, #242424 0%, #1a1a1a 50%, #262626 100%);
+    border: 1px solid var(--line);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ph::before, .ph::after {
+    content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    background:
+      linear-gradient(to top right, transparent calc(50% - .5px), #333 50%, transparent calc(50% + .5px)),
+      linear-gradient(to top left,  transparent calc(50% - .5px), #333 50%, transparent calc(50% + .5px));
+  }
+  .ph span { font-family: var(--mono); font-size: 11px; color: var(--dim); z-index: 2; background: var(--bg); padding: 2px 6px; }
+
+  /* ------- nav ------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 40px; mix-blend-mode: difference;
+  }
+  .logo-box {
+    width: 120px; height: 34px; border: 1px dashed var(--dim);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 10px; color: var(--dim);
+  }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a { color: var(--ink); text-decoration: none; font-size: 12px; letter-spacing: .25em; text-transform: uppercase; }
+
+  /* ------- scroll-scrub hero: 300vh track, pinned stage ------- */
+  #hero-track { height: 300vh; position: relative; }
+  #hero-stage {
+    position: sticky; top: 0; height: 100vh; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse at center, #1e1e1e 0%, #101010 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  #hero-stage .video-ph {
+    width: 72vw; height: 62vh; border: 1px dashed #555;
+    display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center;
+    font-family: var(--mono); color: var(--dim); font-size: 12px; text-align: center;
+  }
+  #scrub-bar { width: 320px; height: 2px; background: #333; }
+  #scrub-fill { width: 0%; height: 100%; background: var(--note); }
+  #hero-title {
+    position: absolute; bottom: 10vh; left: 40px; right: 40px;
+    font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 7vw, 96px);
+    letter-spacing: .04em; opacity: 0; transform: translateY(24px);
+    transition: opacity .3s, transform .3s;
+  }
+  #hero-title small { display: block; font-family: var(--sans); font-size: 12px; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
+
+  section { position: relative; }
+  .section-label {
+    font-family: var(--sans); font-size: 11px; letter-spacing: .4em; text-transform: uppercase;
+    color: var(--dim); padding: 0 40px; margin: 90px 0 30px;
+  }
+
+  /* ------- featured: alternating full-bleed ------- */
+  .feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 78vh; align-items: center; gap: 0; }
+  .feature .ph { height: 78vh; }
+  .feature .cap { padding: 60px; }
+  .feature .cap h2 { font-family: var(--serif); font-size: clamp(28px, 3.6vw, 52px); font-weight: 400; margin-bottom: 18px; }
+  .feature .cap p { color: var(--dim); font-size: 14px; line-height: 1.8; max-width: 42ch; }
+  .feature.flip .ph { order: 2; }
+
+  /* ------- horizontal work strip ------- */
+  .strip-wrap { overflow-x: auto; padding: 0 40px 20px; }
+  .strip { display: flex; gap: 20px; width: max-content; }
+  .strip .ph { width: 420px; height: 540px; flex: none; }
+  .strip .ph.tall { height: 620px; }
+
+  /* ------- about ------- */
+  .about { display: grid; grid-template-columns: 380px 1fr; gap: 70px; padding: 0 40px; align-items: start; }
+  .about .ph { height: 480px; }
+  .about h2 { font-family: var(--serif); font-size: 40px; font-weight: 400; margin-bottom: 22px; }
+  .about p { color: var(--dim); line-height: 1.9; font-size: 15px; max-width: 58ch; margin-bottom: 14px; }
+
+  /* ------- contact cta ------- */
+  .cta { text-align: center; padding: 150px 40px; border-top: 1px solid var(--line); margin-top: 110px; }
+  .cta h2 { font-family: var(--serif); font-size: clamp(44px, 8vw, 120px); font-weight: 400; font-style: italic; }
+  .cta a { display: inline-block; margin-top: 34px; color: var(--ink); text-decoration: none; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; border-bottom: 1px solid var(--note); padding-bottom: 8px; }
+
+  footer { display: flex; justify-content: space-between; padding: 26px 40px; border-top: 1px solid var(--line); font-size: 11px; color: var(--dim); letter-spacing: .15em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-box">LOGO.SVG (light)</div>
+  <ul>
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO: pinned scroll-scrub video -->
+<div id="hero-track">
+  <div id="hero-stage">
+    <div class="note" style="top: 80px; left: 40px;">HERO — Camera_Hero.mp4 pinned full-screen.<br>Scroll position scrubs video playback frame-by-frame (300vh scroll distance). Scroll to test the scrub timing below.</div>
+    <div class="video-ph">
+      <div>[ CAMERA_HERO.MP4 — full-bleed, scrubbed by scroll ]</div>
+      <div id="frame-counter">FRAME 000 / 240</div>
+      <div id="scrub-bar"><div id="scrub-fill"></div></div>
+    </div>
+    <h1 id="hero-title"><small>Photography by</small>Hideki Aono</h1>
+    <div class="note" style="bottom: 34vh; right: 40px;">Title fades in during the last third of the scrub, then hero releases and page scrolls normally.</div>
+  </div>
+</div>
+
+<!-- FEATURED WORK -->
+<div class="section-label">01 — Featured Work</div>
+<section class="feature">
+  <div class="ph"><span>PHOTO — featured 01 (from existing site)</span></div>
+  <div class="cap">
+    <h2>Series Title One</h2>
+    <p>Short curatorial caption pulled from the existing site copy. Image reveals with a slow clip-path wipe as it enters the viewport.</p>
+    <div class="note" style="position: static; display: inline-block; margin-top: 20px;">Images: slow wipe reveal on scroll, subtle parallax drift.</div>
+  </div>
+</section>
+<section class="feature flip">
+  <div class="ph"><span>PHOTO — featured 02</span></div>
+  <div class="cap">
+    <h2>Series Title Two</h2>
+    <p>Alternating layout keeps a gallery-wall rhythm — one work per wall, generous darkness around each frame.</p>
+  </div>
+</section>
+
+<!-- WORK STRIP -->
+<div class="section-label">02 — Selected Work · drag / scroll horizontally</div>
+<div class="strip-wrap">
+  <div class="strip">
+    <div class="ph"><span>PHOTO 03</span></div>
+    <div class="ph tall"><span>PHOTO 04</span></div>
+    <div class="ph"><span>PHOTO 05</span></div>
+    <div class="ph tall"><span>PHOTO 06</span></div>
+    <div class="ph"><span>PHOTO 07</span></div>
+    <div class="ph"><span>+ VIEW ALL → full gallery page</span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section-label">03 — About</div>
+<section class="about">
+  <div class="ph"><span>PORTRAIT — Hideki Aono</span></div>
+  <div>
+    <h2>Hideki Aono</h2>
+    <p>Bio copy migrated from the existing site. Two short paragraphs maximum — the dark gallery treatment favors restraint.</p>
+    <p>Clients / publications list set in small caps below the bio.</p>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="cta">
+  <h2>Let&rsquo;s make something enduring</h2>
+  <a href="#">Inquire — email from existing site</a>
+</section>
+
+<footer>
+  <div>© 2026 Aono Media</div>
+  <div>Instagram · Email</div>
+</footer>
+
+<script>
+  // Lo-fi simulation of the scroll-scrubbed video hero
+  const track = document.getElementById('hero-track');
+  const fill = document.getElementById('scrub-fill');
+  const counter = document.getElementById('frame-counter');
+  const title = document.getElementById('hero-title');
+  addEventListener('scroll', () => {
+    const total = track.offsetHeight - innerHeight;
+    const p = Math.min(1, Math.max(0, -track.getBoundingClientRect().top / total));
+    fill.style.width = (p * 100) + '%';
+    counter.textContent = 'FRAME ' + String(Math.round(p * 240)).padStart(3, '0') + ' / 240';
+    title.style.opacity = p > 0.66 ? 1 : 0;
+    title.style.transform = p > 0.66 ? 'translateY(0)' : 'translateY(24px)';
+  }, { passive: true });
+</script>
+</body>
+</html>
