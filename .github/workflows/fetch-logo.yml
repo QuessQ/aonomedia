@@ -1,4 +1,4 @@
-name: fetch-logo
+name: fetch-assets
 on:
   push:
     branches: [sillage-deploy]
@@ -11,9 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          mkdir -p brand
-          curl -fsSL https://hidekiaono.tech/assets/brand/hideki-aono-black.png -o brand/hideki-aono-black.png
-          for f in hideki-aono-white.png hideki-aono.svg hideki-aono-white.svg logo.svg logo.png; do curl -fsSL "https://hidekiaono.tech/assets/brand/$f" -o "brand/$f" || rm -f "brand/$f"; done
-          ls -la brand
+          mkdir -p audio
+          i=0
+          for id in a1a62989-4300-46cf-aec6-597b008820ab 23ad6c9d-8e6f-4619-a935-ea155807477f 52621ae5-3ec7-4707-96af-0a6542e38164 3b0f09fe-0c7f-4dc2-9b18-e697438ada5f b03172d6-ed5d-4ed5-9a70-7f54a77b9015 abe3b592-0f68-4f39-b87e-f6b9e031968b 2454fe37-8bd9-4843-855d-dd32dea69328 93a0d7b2-c45c-418f-ab90-c12acadb84c4 ba4f996b-a8f6-4a50-b0fe-155f0c02e9b2 adcc617d-e1dd-48f9-ac88-42e51e0ca7bd 326c8f2e-4bd7-4b86-8619-a2afe189bcfd; do
+            curl -fsSL "https://d8j0ntlcm91z4.cloudfront.net/user_3Az6LgWFNjz9OIp3c5PKw9fYBXq/hf_20261107_162230_${id}.mp3" -o "audio/$(printf %02d $i).mp3"; i=$((i+1)); done
+          ls -la audio
           git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
-          git add brand && git commit -m "Fetch portfolio logo for Sillage reel" && git push
+          git add audio && git commit -m "Fetch reel audio" && git push
