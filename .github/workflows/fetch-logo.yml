@@ -1,0 +1,19 @@
+name: fetch-logo
+on:
+  push:
+    branches: [sillage-deploy]
+    paths: ['.github/workflows/fetch-logo.yml']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p brand
+          curl -fsSL https://hidekiaono.tech/assets/brand/hideki-aono-black.png -o brand/hideki-aono-black.png
+          for f in hideki-aono-white.png hideki-aono.svg hideki-aono-white.svg logo.svg logo.png; do curl -fsSL "https://hidekiaono.tech/assets/brand/$f" -o "brand/$f" || rm -f "brand/$f"; done
+          ls -la brand
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add brand && git commit -m "Fetch portfolio logo for Sillage reel" && git push
