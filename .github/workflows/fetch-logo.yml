@@ -11,10 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          mkdir -p audio
-          i=0
-          for id in a1a62989-4300-46cf-aec6-597b008820ab 23ad6c9d-8e6f-4619-a935-ea155807477f 52621ae5-3ec7-4707-96af-0a6542e38164 3b0f09fe-0c7f-4dc2-9b18-e697438ada5f b03172d6-ed5d-4ed5-9a70-7f54a77b9015 abe3b592-0f68-4f39-b87e-f6b9e031968b 2454fe37-8bd9-4843-855d-dd32dea69328 93a0d7b2-c45c-418f-ab90-c12acadb84c4 ba4f996b-a8f6-4a50-b0fe-155f0c02e9b2 adcc617d-e1dd-48f9-ac88-42e51e0ca7bd 326c8f2e-4bd7-4b86-8619-a2afe189bcfd; do
-            curl -fsSL "https://d8j0ntlcm91z4.cloudfront.net/user_3Az6LgWFNjz9OIp3c5PKw9fYBXq/hf_20261107_162230_${id}.mp3" -o "audio/$(printf %02d $i).mp3"; i=$((i+1)); done
-          ls -la audio
+          mkdir -p img
+          B=https://d8j0ntlcm91z4.cloudfront.net/user_3Az6LgWFNjz9OIp3c5PKw9fYBXq/hf_20261107_164156_
+          while read name id; do curl -fsSL "${B}${id}.png" -o "img/${name}.png"; done <<'LIST'
+          hero-wide 9d754b7f-de37-4845-b877-2c830879e845
+          hero-tall 2f0b15ea-bad3-4aff-adac-f2f40b2b5eb1
+          mem-rain cd07ce0b-e649-4dc5-ab64-48846c1b129b
+          mem-fig c892286b-a7d5-4608-bfe0-fea0cec8e6a6
+          mem-fire 3babb4d9-6af8-4988-b20d-63f337748318
+          mem-cedar f63de689-3fbd-4438-9cf9-1ea92162c07b
+          mem-jasmine 673a7607-6060-44f6-a6d5-8fda8dfa451f
+          mem-ocean 9c955ecb-fb49-4eef-981f-a595387ababc
+          mem-library 5312cbb8-4019-4da8-afca-0a272f40aee2
+          mem-bakery 08b2133b-91a0-440a-ad63-d73b15d7e07b
+          lineup ebde3b11-9bcf-40b7-a786-1b76c85841f7
+          drop f1f11619-eec0-4fb9-bf19-d26731528117
+          LIST
+          ls -la img
           git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
-          git add audio && git commit -m "Fetch reel audio" && git push
+          git add img && git commit -m "Fetch Sillage imagery" && git push
